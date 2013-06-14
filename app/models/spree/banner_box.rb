@@ -22,14 +22,23 @@ module Spree
     scope :enable, lambda { |category| {:conditions => {:enabled => true, :category => category}} }
     
     # Load user defined paperclip settings
-    include Spree::Core::S3Support
-    supports_s3 :attachment
+    # include Spree::Core::S3Support
+    # supports_s3 :attachment
+    if Spree::Config[:use_s3]
+      s3_creds = { :access_key_id => Spree::Config[:s3_access_key], :secret_access_key => Spree::Config[:s3_secret], :bucket => Spree::Config[:s3_bucket] }
+      Spree::BannerBox.attachment_definitions[:attachment][:storage] = :s3
+      Spree::BannerBox.attachment_definitions[:attachment][:s3_credentials] = s3_creds
+      Spree::BannerBox.attachment_definitions[:attachment][:s3_headers] = ActiveSupport::JSON.decode(Spree::Config[:s3_headers])
+      Spree::BannerBox.attachment_definitions[:attachment][:bucket] = Spree::Config[:s3_bucket]
+      Spree::BannerBox.attachment_definitions[:attachment][:s3_protocol] = Spree::Config[:s3_protocol] unless Spree::Config[:s3_protocol].blank?
+      Spree::BannerBox.attachment_definitions[:attachment][:s3_host_alias] = Spree::Config[:s3_host_alias] unless Spree::Config[:s3_host_alias].blank?
+    end
     
     Spree::BannerBox.attachment_definitions[:attachment][:styles] = ActiveSupport::JSON.decode(Spree::Config[:banner_styles])
     Spree::BannerBox.attachment_definitions[:attachment][:path] = Spree::Config[:banner_path]
     Spree::BannerBox.attachment_definitions[:attachment][:url] = Spree::Config[:banner_url]
     Spree::BannerBox.attachment_definitions[:attachment][:default_url] = Spree::Config[:banner_default_url]
-    Spree::BannerBox.attachment_definitions[:attachment][:default_style] = Spree::Config[:banner_default_style]
+    Spree::BannerBox.attachment_definitions[:attachment][:default_style] = Spree::Config[:banner_default_style]  
         
     def initialize(*args)
       super(*args)
