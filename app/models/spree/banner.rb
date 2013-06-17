@@ -26,12 +26,13 @@ module Spree
     
     # Load user defined paperclip settings
     if Spree::Config[:use_s3]
-      s3_creds = { :access_key_id => Spree::Config[:s3_access_key], :secret_access_key => Spree::Config[:s3_secret], :bucket => Spree::Config[:s3_bucket] }
+      s3_creds = { :access_key_id => Spree::Config[:s3_access_key], :secret_access_key => Spree::Config[:s3_secret], :bucket => Spree::Config[:s3_bucket], s3_host_name: Spree::Config[:s3_host_alias]}
       Spree::Banner.attachment_definitions[:attachment][:storage] = :s3
       Spree::Banner.attachment_definitions[:attachment][:s3_credentials] = s3_creds
       Spree::Banner.attachment_definitions[:attachment][:s3_headers] = ActiveSupport::JSON.decode(Spree::Config[:s3_headers])
       Spree::Banner.attachment_definitions[:attachment][:bucket] = Spree::Config[:s3_bucket]
       Spree::Banner.attachment_definitions[:attachment][:s3_protocol] = Spree::Config[:s3_protocol] unless Spree::Config[:s3_protocol].blank?
+      Spree::Image.attachment_definitions[:attachment][:s3_host_alias] = Spree::Config[:s3_host_alias] unless Spree::Config[:s3_host_alias].blank?
     end
     
     Spree::Banner.attachment_definitions[:attachment][:styles] = ActiveSupport::JSON.decode(Spree::Config[:banner_styles])

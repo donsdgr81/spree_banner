@@ -15,15 +15,17 @@
   <tr data-hook="admin_banners_index_headers">
     <th><%= t(:category) %></th>
     <th><%= t(:enable) %></th>
+    <th><%= t(:sample) %></th>
     <th data-hook="admin_banners_index_header_actions"></th>
   </tr>
-<% @banners.each do |banner| %>
-  <tr id="<%= spree_dom_id banner %>" data-hook="admin_banners_index_rows">
-    <td><%= banner.category %></td>
-	<td><%= icon('tick') if banner.enabled %></td>
-    <td class="actions" data-hook="admin_banners_index_row_actions">
-      <%= link_to_edit banner, :class => 'edit' %>&nbsp;<%= link_to_delete banner %>
-    </td>
-  </tr>
-<% end %>
+  <% @banners.each do |banner| %>
+    <tr id="<%= spree_dom_id banner %>" data-hook="admin_banners_index_rows">
+      <td><%= banner.category %></td>
+      <td><%= icon('tick') if banner.enabled %></td>
+      <td><%= image_tag(banner.attachment.url('small')) %></td>
+      <td class="actions" data-hook="admin_banners_index_row_actions">
+        <%= link_to_edit banner, :class => 'edit' %>&nbsp;<%= link_to_delete banner %>
+      </td>
+    </tr>
+  <% end %>
 </table>
