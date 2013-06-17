@@ -1,9 +1,10 @@
 Deface::Override.new(:virtual_path => "spree/layouts/admin",
-                      :name => "banner_box_admin_tab",
+                      :name => "banner_admin_tab",
                       :insert_bottom => "[data-hook='admin_tabs'], #admin_tabs[data-hook]",
-                      :text => "<%= tab(:banner_boxes, :icon => 'icon-bookmark') %>")
+                      :text => "<%= tab(:banners, :url => spree.admin_banners_path) %>",
+                      :disabled => false)
 
-Deface::Override.new(:virtual_path => "spree/admin/shared/_configuration_menu",
-                      :name => "add_banner_box_settings",
-                      :insert_bottom => "[data-hook='admin_configurations_sidebar_menu'], #admin_configurations_sidebar_menu[data-hook]",
-                      :text => "<%= configurations_sidebar_menu_item(:banner_box_settings, edit_admin_banner_box_settings_url) %>")
+Deface::Override.new(:virtual_path => "spree/admin/configurations/index",
+                      :name => "add_banner_setting_to_configuration_menu",
+                      :insert_bottom => "[data-hook='admin_configurations_menu']",
+                      :partial => "spree/admin/shared/banner_setting_configurations_menu")

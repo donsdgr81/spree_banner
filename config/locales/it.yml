@@ -1,35 +1,79 @@
+---
 it:
-  images_only: "deve essere JPG, JPEG, PNG o GIF"
-  banner_box_settings: Impostazioni Banner
-  add_new_banner_style: "Aggiungi nuovo stile dei Banner"
-  banner_box_settings_warning: "Sarà necessario rigenerare le miniature dopo aver aggiornato gli stili di paperclip delle Slide, col comando rake paperclip:refresh:thumbnails CLASS=Spree::Banner"
-  banner_settings_description: "Descrizione Impostazioni Banner"
-  banner_settings_updated: "Impostazioni Banner aggiornate con successo."
-  banner_default_style: "Stile di Default dell'allegato dei Banner"
-  banner_default_url: "URL di Default dell'allegato dei Banner"
-  banner_path: "Percorso dell'allegato dei Banner"
-  banner_styles: "Stili di Paperclip dei Banner"
-  banner_url: "URL dell'allegato dei Banner"
-  back_to_banner_boxes_list: "Torna all'elenco Banner"
-  new_banner_box: "Nuova Banner"
-  listing_banner_boxes: "Elenco Banner"
-  enabled: Attivo?
-  url: Link url
-  attachment: Immagine
-  category: Categoria
-  banner_boxes: Banners
-  banner_box: Banner
-  notice_messages:
-    banner_box_cloned: "Banner Duplicato"
-    banner_box_not_cloned: "Impossibili Duplicare il Banner"
   activerecord:
-    models:
-      banner_box:
-        one: Banner
-        other: Banners
+    errors: &errors
+      format: "%{attribute} %{message}\n"
+      
+      messages: &errors_messages
+        inclusion: "non è incluso nella lista"
+        exclusion: "è riservato"
+        invalid: "non è valido"
+        confirmation: "non coincide con la conferma"
+        record_invalid: "Validazione fallita: %{errors}"
+        taken: è già in uso
+        accepted: "deve essere accettata"
+        empty: "non può essere vuoto"
+        blank: "non può essere lasciato in bianco"
+        too_long:
+          one: "è troppo lungo (il massimo è 1 carattere)"
+          other: "è troppo lungo (il massimo è %{count} caratteri)"
+        too_short:
+          one:  "è troppo corto (il minimo è 1 carattere)"
+          other:  "è troppo corto (il minimo è %{count} caratteri)"
+        wrong_length:
+          one: "è della lunghezza sbagliata (deve essere di 1 carattere)"
+          other: "è della lunghezza sbagliata (deve essere di %{count} caratteri)"
+        not_a_number: "non è un numero"
+        not_an_integer: "non è un intero"
+        greater_than: "deve essere superiore a %{count}"
+        greater_than_or_equal_to: "deve essere superiore o uguale a %{count}"
+        equal_to: "deve essere uguale a %{count}"
+        less_than: "deve essere meno di %{count}"
+        less_than_or_equal_to: "deve essere meno o uguale a %{count}"
+        odd: "deve essere dispari"
+        even: "deve essere pari" 
+      
+      models:
+        banner:
+          attributes:
+            banner:
+              category: Categoria
+              enabled: Attivo?
+              url: Link a prodotto o tassonomia o a sito esterno
+              attachment_width: Larghezza immagine
+              attachment_height: Altezza immagine
+              attachment: Immagine
+              attachment_file_name: Nome immagine
+              position: Posizione (se esistono altri banner con la stessa categoria)
     attributes:
-      banner_box:
+      banner:
         category: Categoria
-        updated_at: Aggiornata il
-        created_at: Creata il
         enabled: Attivo?
+        url: Link a prodotto o tassonomia o a sito esterno
+        attachment_width: Larghezza immagine
+        attachment_height: Altezza immagine
+        attachment: Immagine
+        position: Posizione (se esistono altri banner con la stessa categoria)
+    models:
+      banner:
+        one: Banner
+        many: Banners
+
+  banner: "Banner"
+  banners: "Banners"
+  new_banner: "Nuovo Banner"
+  enable: Attivo?
+  category: Categoria
+  no_image: Nessuna immagine caricata
+  attachment_width: Larghezza immagine banner
+  attachment_height: Altezza immagine banner
+  position: Posizione (se esistono altri banner con la stessa categoria)
+  enabled: Attivo?
+  url: Link a prodotto o tassonomia o a sito esterno
+  image:
+    one: Immagine
+    many: Immagini
+  banner_desc: Gestione banner.
+  new_banner: Nuovo banner
+  editing_banner: Modifica banner
+  confirm_delete: Sei sicuro?

@@ -1,14 +1,10 @@
-Spree::Core::Engine.routes.draw do
-  
+Spree::Core::Engine.routes.prepend do
   namespace :admin do
-    resources :banner_boxes do
+    resources :banners do
       collection do
         post :update_positions
       end
-      member do
-        get :clone
-      end
     end
-    resource :banner_box_settings
+    resource :banner_settings
   end
 end

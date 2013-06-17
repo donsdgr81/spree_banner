@@ -1,35 +1,78 @@
+---
 en:
-  images_only: "deve essere JPG, JPEG, PNG o GIF"
-  banner_box_settings: Banner Setting
-  add_new_banner_style: "Add New Banner Style"
-  banner_box_settings_warning: "You will need to regenerate thumbnails if you update the paperclip styles. Use rake paperclip:refresh:thumbnails CLASS=Spree::Banner to do this."
-  banner_settings_description: "Banner Settings Description"
-  banner_settings_updated: "Banner Settings successfully updated."
-  banner_default_style: "Banner Default Path"
-  banner_default_url: "Banner Default URL"
-  banner_path: "Banner Path"
-  banner_styles: "Paperclip Styles Banner"
-  banner_url: "Banner URL"
-  back_to_banner_boxes_list: "Back To Banner List"
-  new_banner_box: "New Banner"
-  listing_banner_boxes: "Listing Banners"
-  enabled: Enabled?
-  url: Link url
-  attachment: Attachment
-  category: Category
-  banner_boxes: Banners
-  banner_box: Banner
-  notice_messages:
-    banner_box_cloned: "Banner has been cloned"
-    banner_box_not_cloned: "Banner could not be cloned"
   activerecord:
-    models:
-      banner_box:
-        one: Banner
-        other: Banners
+    errors: &errors
+      format: "%{attribute} %{message}\n"
+
+      messages: &errors_messages
+        inclusion: "is not included in the list"
+        exclusion: "is reserved"
+        invalid: "is invalid"
+        confirmation: "doesn't match confirmation"
+        record_invalid: "Validation failed: %{errors}"
+        taken: has already been taken
+        accepted: "must be accepted"
+        empty: "can't be empty"
+        blank: "can't be blank"
+        too_long:
+          one: "is too long (maximum is 1 character)"
+          other: "is too long (maximum is %{count} characters)"
+        too_short:
+          one:  "is too short (minimum is 1 character)"
+          other:  "is too short (minimum is %{count} characters)"
+        wrong_length:
+          one: "is the wrong length (should be 1 character)"
+          other: "is the wrong length (should be %{count} characters)"
+        not_a_number: "is not a number"
+        not_an_integer: "must be an integer"
+        greater_than: "must be greater than %{count}"
+        greater_than_or_equal_to: "must be greater than or equal to %{count}"
+        equal_to: "must be equal to %{count}"
+        less_than: "must be less than %{count}"
+        less_than_or_equal_to: "must be less than or equal to %{count}"
+        odd: "must be odd"
+        even: "must be even"
+
+      models:
+        banner:
+          attributes:
+            banner:
+              category: Category
+              enabled: Enable?
+              url: Link to product or taxonomy or to external website
+              attachment_width: Width image
+              attachment_height: Height image
+              attachment: Image
+              attachment_file_name: Image Name
+              position: Position (if there are other banners with the same category)
     attributes:
-      banner_box:
+      banner:
         category: Category
-        updated_at: Updated At
-        created_at: Created At
-        enabled: Enabled?
+        enabled: Enable?
+        url: Link to product or taxonomy or to external website
+        attachment_width: Width image
+        attachment_height: Height image
+        attachment: Image
+        position: Position (if there are other banners with the same category)
+    models:
+      banner:
+        one: Banner
+        many: Banners
+
+  banner: "Banner"
+  banners: "Banners"
+  enable: Enable?
+  enabled: Enable?
+  category: Category
+  no_image: No Image Yet
+  attachment_width: Width image
+  attachment_height: Height image
+  position: Position (if there are other banners with the same category)
+  url: Link to product or taxonomy or to external website
+  image:
+    one: Image
+    many: Images
+  banner_desc: Manage banner.
+  new_banner: New banner
+  editing_banner: Edit banner
+  confirm_delete: Are you sure?

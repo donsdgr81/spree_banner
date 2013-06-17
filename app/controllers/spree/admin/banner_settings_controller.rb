@@ -1,9 +1,9 @@
 module Spree
   module Admin
-    class BannerBoxSettingsController < Spree::Admin::BaseController
-      
+    class BannerSettingsController < Spree::Admin::BaseController
       def show
-        redirect_to( :action => :edit )
+        styles = ActiveSupport::JSON.decode(Spree::Config[:banner_styles])
+        @styles_list = styles.collect { |k, v| k }.join(", ")
       end
 
       def edit
@@ -19,7 +19,7 @@ module Spree
         respond_to do |format|
           format.html {
             flash[:notice] = t(:banner_settings_updated)
-            redirect_to edit_admin_banner_box_settings_path
+            redirect_to admin_banner_settings_path
           }
         end
       end
@@ -38,10 +38,10 @@ module Spree
       end
 
       def update_paperclip_settings
-        Spree::BannerBox.attachment_definitions[:attachment][:styles] = ActiveSupport::JSON.decode(Spree::Config[:banner_styles])
-        Spree::BannerBox.attachment_definitions[:attachment][:path] = Spree::Config[:banner_path]
-        Spree::BannerBox.attachment_definitions[:attachment][:default_url] = Spree::Config[:banner_default_url]
-        Spree::BannerBox.attachment_definitions[:attachment][:default_style] = Spree::Config[:banner_default_style]
+        Spree::Banner.attachment_definitions[:attachment][:styles] = ActiveSupport::JSON.decode(Spree::Config[:banner_styles])
+        Spree::Banner.attachment_definitions[:attachment][:path] = Spree::Config[:banner_path]
+        Spree::Banner.attachment_definitions[:attachment][:default_url] = Spree::Config[:banner_default_url]
+        Spree::Banner.attachment_definitions[:attachment][:default_style] = Spree::Config[:banner_default_style]
       end
     end
   end

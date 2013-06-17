@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_banner'
-  s.version     = '1.3.0'
+  s.version     = '1.1.4'
   s.summary     = 'Extension to manage banner for you Spree Shop'
   s.required_ruby_version = '>= 1.8.7'
 
@@ -13,8 +13,8 @@ Gem::Specification.new do |s|
   s.files        = Dir['CHANGELOG', 'README.md', 'LICENSE', 'lib/**/*', 'app/**/*', 'db/**/*', 'config/**/*']
   s.require_path = 'lib'
   s.requirements << 'none'
-  
-  s.add_dependency 'spree_core', '>= 1.1.5'
+
+  s.add_dependency 'spree_core', '>= 1.1.3'
   s.add_dependency 'paperclip'
   s.add_dependency 'aws-sdk'
 end
