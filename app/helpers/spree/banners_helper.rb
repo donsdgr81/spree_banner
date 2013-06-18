@@ -1,25 +1,44 @@
 module Spree
   module BannersHelper
 
-    def insert_banner(params={})
+    def insert_banner(id, options = {})
       # max items show for list
-      params[:max] ||= 1
+      options[:max] ||= 1
       # category items show
-      params[:category] ||= "home"
+      options[:category] ||= "home"
       # class items show
-      params[:class] ||= "banner"
-      # style items show
-      params[:list] ||= false
-      banner = Spree::Banner.enable(params[:category]).limit(params[:max])
-      if !banner.blank?
-        banner = banner.sort_by { |ban| ban.position }
+      options[:class] ||= "banner"
+      id = id
+      banners = Spree::Banner.enable(options[:category]).limit(options[:max])
+      if !banners.blank?
+        banners = banners.sort_by { |ban| ban.position }
 
-        if (params[:list])
-          content_tag(:ul, banner.map{|ban| content_tag(:li, link_to(image_tag(ban.attachment.url(:custom)), (ban.url.blank? ? "javascript: void(0)" : ban.url)), :class => params[:class])}.join().html_safe )
-        else
-          banner.map{|ban| content_tag(:div, link_to(image_tag(ban.attachment.url(params[:category])), (ban.url.blank? ? "javascript: void(0)" : ban.url)), :class => params[:class])}.join().html_safe
+        banner = content_tag :div, :id => id, :class => options[:class] do
+          banners.each do |banner|
+            concat(link_to(image_tag(banner.attachment.url(options[:category])), (banner.url.blank? ? "javascript: void(0)" : banner.url)))
+          end
         end
 
+        script = javascript_tag do
+          raw("
+            $(function(){
+              $('##{id}').slidesjs({
+                width: #{banners.first.attachment_width},
+                height: #{banners.first.attachment_height},
+                navigation: {
+                  active: false
+                },
+                play: {
+                  active: false,
+                  interval: 8000,
+                  auto: true,
+                  pauseOnHover: false
+                }
+              });
+            });")
+        end
+
+        banner + script
       end
     end
 
