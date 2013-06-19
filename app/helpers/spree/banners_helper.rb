@@ -1,6 +1,5 @@
 module Spree
   module BannersHelper
-
     def insert_banner(id, options = {})
       # max items show for list
       options[:max] ||= 1
