@@ -18,7 +18,6 @@ module Spree
             concat(link_to(image_tag(banner.attachment.url(options[:category])), (banner.url.blank? ? "javascript: void(0)" : banner.url)))
           end
         end
-
         script = javascript_tag do
           raw("
             $(function(){
